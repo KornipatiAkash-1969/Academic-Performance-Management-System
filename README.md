@@ -223,4 +223,4 @@ Kornipati Akash Babu
 
 GitHub Repository:
 
-https://github.com/KornipatiAkash-1969/Academic-Performance
+https://github.com/KornipatiAkash-1969/Academic-Performance-Management-System
