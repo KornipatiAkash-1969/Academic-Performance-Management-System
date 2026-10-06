@@ -8,57 +8,57 @@ The system provides separate portals for **Teachers, Students, and Coordinators*
 
 ## 🚀 Project Overview
 
-The **Academic Performance Management System (APMS)** is a centralized platform for managing academic information efficiently.
+The **Academic Performance Management System (APMS)** is a centralized academic management platform that simplifies the process of managing student academic information.
 
-It provides three role-based portals:
+The system provides three role-based portals:
 
-- 👨‍🏫 **Teacher** – Manage students, subjects, marks, and academic records
-- 👨‍🎓 **Student** – View subjects, marks, grades, and academic performance
-- 👨‍💼 **Coordinator** – Manage teachers and coordinate academic activities
+- 👨‍🏫 **Teacher Portal** – Manage students, subjects, marks, and academic records
+- 👨‍🎓 **Student Portal** – View subjects, marks, grades, and academic performance
+- 👨‍💼 **Coordinator Portal** – Manage teacher accounts, notes, and academic coordination
 
-The application follows a **React.js + Node.js + Express.js + SQLite** architecture.
+The application is built using **React.js, Node.js, Express.js, and SQLite**.
 
 ---
 
-## ✨ Key Features
+# ✨ Features
 
-### 👨‍🏫 Teacher Portal
+## 👨‍🏫 Teacher Portal
 
 Teachers can manage student academic information through a dedicated dashboard.
 
 - 🔐 Teacher Login
-- 👥 Add and manage students
-- 📋 View student list
-- 📚 Add and manage subjects
-- 📝 Add marks and assessment records
-- 📊 Manage academic performance records
-- 📈 Monitor student performance
+- 👥 Add Students
+- 📋 View Students List
+- 📚 Add Subjects
+- 📝 Add Marks
+- 📊 Manage Academic Records
+- 📈 Monitor Student Performance
 
 ---
 
-### 👨‍🎓 Student Portal
+## 👨‍🎓 Student Portal
 
-Students can access their academic information from their dashboard.
+Students can access their academic information through their personal dashboard.
 
 - 🔐 Student Login
-- 📚 View enrolled subjects
-- 📝 View marks
-- 🎯 View grades
-- 📊 View academic performance
-- 📈 Track assessment results
+- 📚 View Subjects
+- 📝 View Marks
+- 🎯 View Grades
+- 📊 View Academic Performance
+- 📈 Track Assessment Results
 
 ---
 
-### 👨‍💼 Coordinator Portal
+## 👨‍💼 Coordinator Portal
 
-The coordinator manages academic coordination and teacher-related activities.
+Coordinators can manage academic activities and teacher-related information.
 
 - 🔐 Coordinator Login
-- 👨‍🏫 Create teacher accounts
-- 📝 Send academic notes
-- 📊 Coordinator dashboard
-- 🔄 Coordinate academic activities
-- 👥 Manage teacher-related information
+- 👨‍🏫 Create Teacher Accounts
+- 📝 Send Notes
+- 📊 Academic Coordination Dashboard
+- 👥 Manage Teacher Information
+- 🔄 Coordinate Academic Activities
 
 ---
 
@@ -69,16 +69,15 @@ The coordinator manages academic coordination and teacher-related activities.
 - **React.js**
 - **React Router DOM**
 - **Axios**
+- **JavaScript**
 - **HTML5**
 - **CSS3**
-- **JavaScript**
 
 ## Backend
 
 - **Node.js**
 - **Express.js**
 - **REST APIs**
-- **Multer** *(if used for file handling)*
 
 ## Database
 
@@ -112,18 +111,18 @@ The coordinator manages academic coordination and teacher-related activities.
 
 # 👥 Role-Based Access
 
-| Role | Main Responsibilities |
-|------|------------------------|
-| 👨‍🏫 Teacher | Students, subjects, marks, academic records |
-| 👨‍🎓 Student | Subjects, marks, grades, performance |
-| 👨‍💼 Coordinator | Teacher accounts, notes, academic coordination |
+| Role | Responsibilities |
+|------|------------------|
+| 👨‍🏫 **Teacher** | Manage students, subjects, marks, and academic records |
+| 👨‍🎓 **Student** | View subjects, marks, grades, and academic performance |
+| 👨‍💼 **Coordinator** | Manage teachers, notes, and academic coordination |
 
 ---
 
 # 📂 Project Structure
 
 ```text
-Academic-Performance/
+Academic-Performance-Management-System/
 │
 ├── backend/
 │   ├── controllers/
@@ -153,20 +152,20 @@ Academic-Performance/
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/KornipatiAkash-1969/Academic-Performance.git
+git clone https://github.com/KornipatiAkash-1969/Academic-Performance-Management-System.git
 ```
 
-Navigate into the project:
+Navigate to the project directory:
 
 ```bash
-cd Academic-Performance
+cd Academic-Performance-Management-System
 ```
 
 ---
 
-# ▶️ Running the Backend
+# ▶️ Run the Backend
 
-Open a terminal and navigate to the backend:
+Open a terminal and navigate to the backend folder:
 
 ```bash
 cd backend
@@ -192,15 +191,15 @@ http://localhost:5000
 
 ---
 
-# ▶️ Running the Frontend
+# ▶️ Run the Frontend
 
-Open a **new terminal** and navigate to the frontend:
+Open a **new terminal** and navigate to the frontend folder:
 
 ```bash
 cd frontend
 ```
 
-Install dependencies:
+Install the required dependencies:
 
 ```bash
 npm install
@@ -222,15 +221,15 @@ http://localhost:3000
 
 # 🗄️ Database
 
-The application uses **SQLite** for storing academic and user information.
+The project uses **SQLite** as the database.
 
-Database location:
+Database file:
 
 ```text
 backend/database/student_performance.db
 ```
 
-### Main Tables
+### Main Database Tables
 
 ```text
 users
@@ -244,7 +243,7 @@ notes
 
 # 🔐 Authentication & Roles
 
-The application provides role-based login for:
+The system supports three different user roles:
 
 ```text
 Teacher
@@ -252,85 +251,96 @@ Student
 Coordinator
 ```
 
-After authentication, users are redirected to the dashboard associated with their role.
+Each role has its own login and dashboard.
 
 ```text
-                    Login
-                      │
-          ┌───────────┼───────────┐
-          ▼           ▼           ▼
-       Teacher     Student    Coordinator
-          │           │           │
-          ▼           ▼           ▼
-      Teacher      Student    Coordinator
-      Dashboard    Dashboard    Dashboard
+                         Login
+                           │
+             ┌─────────────┼─────────────┐
+             │             │             │
+             ▼             ▼             ▼
+          Teacher       Student      Coordinator
+             │             │             │
+             ▼             ▼             ▼
+          Teacher       Student      Coordinator
+         Dashboard     Dashboard      Dashboard
 ```
 
 ---
 
 # 📊 Application Modules
 
-### 🔐 Authentication Module
-- User login
-- Role-based access
-- Dashboard redirection
+## 🔐 Authentication Module
 
-### 👥 Student Management
+- User login
+- Role-based authentication
+- Role-based dashboard access
+
+## 👥 Student Management
+
 - Add students
 - View student records
 - Manage academic information
 
-### 📚 Subject Management
-- Add subjects
-- View subject information
-- Manage subjects
+## 📚 Subject Management
 
-### 📝 Assessment & Marks
+- Add subjects
+- View subjects
+- Manage subject information
+
+## 📝 Assessment & Marks
+
 - Add assessment marks
 - View marks
 - Manage academic records
-- Grade evaluation
+- Grade management
 
-### 📈 Academic Performance
-- Student performance tracking
-- Marks and grade visualization
-- Academic record management
+## 📈 Academic Performance
 
-### 📝 Notes & Coordination
-- Coordinator notes
-- Academic communication
+- Track student performance
+- View marks and grades
+- Monitor academic progress
+
+## 📝 Notes & Coordination
+
+- Send academic notes
 - Teacher coordination
+- Academic communication
 
-### 📊 Dashboards
-- Teacher Dashboard
-- Student Dashboard
-- Coordinator Dashboard
+## 📊 Dashboard
+
+Separate dashboards are available for:
+
+- Teacher
+- Student
+- Coordinator
 
 ---
 
 # 🎯 Project Objectives
 
-The main objective of this project is to develop a centralized platform that simplifies academic management by providing:
+The main objective of this project is to develop a centralized academic management platform that helps educational institutions manage:
 
-- 👥 Centralized student records
-- 📚 Subject management
-- 📝 Assessment and marks management
-- 🎯 Grade tracking
-- 📊 Academic performance monitoring
-- 👨‍🏫 Teacher management
+- 👥 Student records
+- 📚 Subject information
+- 📝 Assessments
+- 📊 Marks
+- 🎯 Grades
+- 📈 Academic performance
+- 👨‍🏫 Teacher information
 - 📝 Academic communication
-- 🔐 Role-based access control
 
 ---
 
 # 🌟 Benefits
 
 - Reduces manual academic record management
-- Provides centralized access to academic information
-- Improves communication between academic roles
-- Allows students to easily track their performance
-- Helps teachers manage student records efficiently
-- Provides coordinators with better academic oversight
+- Centralizes student academic information
+- Provides role-based access
+- Helps teachers manage student performance
+- Allows students to track their academic progress
+- Helps coordinators manage academic activities
+- Improves academic communication and coordination
 
 ---
 
@@ -344,7 +354,7 @@ The application includes the following major screens:
 - 👨‍💼 Coordinator Dashboard
 - 👥 Student Management
 - 📚 Subjects Page
-- 📝 Marks & Assessments Page
+- 📝 Marks Page
 - 📊 Academic Performance Page
 - 📝 Notes Page
 
@@ -352,17 +362,17 @@ The application includes the following major screens:
 
 # 🔮 Future Enhancements
 
-Potential future improvements include:
+Future versions of the application may include:
 
 - 📊 Advanced performance analytics
-- 📈 Interactive charts and reports
-- 📄 PDF report generation
+- 📈 Interactive charts and graphs
+- 📄 PDF academic report generation
 - 📧 Email notifications
 - 🔔 Real-time notifications
 - 🔑 Password reset functionality
 - 📱 Improved mobile responsiveness
 - ☁️ Cloud database integration
-- 🚀 Deployment to a production environment
+- 🚀 Production deployment
 
 ---
 
@@ -388,9 +398,9 @@ npm start
 
 # 👨‍💻 Developer
 
-### Kornipati Akash Babu
+## Kornipati Akash Babu
 
-GitHub:
+GitHub Profile:
 
 [Kornipati Akash Babu – GitHub](https://github.com/KornipatiAkash-1969?utm_source=chatgpt.com)
 
@@ -400,10 +410,10 @@ GitHub:
 
 **Academic Performance Management System**
 
-[Academic Performance Management System – GitHub Repository](https://github.com/KornipatiAkash-1969/Academic-Performance?utm_source=chatgpt.com)
+[Academic Performance Management System – GitHub Repository](https://github.com/KornipatiAkash-1969/Academic-Performance-Management-System?utm_source=chatgpt.com)
 
 ---
 
-## ⭐ If you find this project useful
+# ⭐ Support
 
-Consider giving the repository a ⭐ on GitHub.
+If you find this project useful, consider giving the repository a ⭐ on GitHub.
