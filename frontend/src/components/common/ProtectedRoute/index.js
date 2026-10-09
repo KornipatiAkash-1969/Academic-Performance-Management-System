@@ -29,22 +29,12 @@ function ProtectedRoute({
 
   // No Login
   if (!token || !user) {
-
-    return <Navigate to="/" />;
-
+    return <Navigate to="/login" replace />;
   }
 
   // Role Not Allowed
-  if (
-
-    !allowedRoles.includes(
-      user.role
-    )
-
-  ) {
-
-    return <Navigate to="/" />;
-
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
   }
 
   return children;

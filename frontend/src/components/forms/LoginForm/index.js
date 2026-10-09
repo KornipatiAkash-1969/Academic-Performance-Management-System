@@ -1,207 +1,355 @@
 import './index.css';
 
-import {
-  useState
-} from 'react';
-
-import {
-  useNavigate
-} from 'react-router-dom';
-
-import {
-  loginUser
-} from '../../../services/authService';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../../services/authService';
 
 function LoginForm() {
+  const navigate = useNavigate();
 
-  const navigate =
-    useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [selectedRole, setSelectedRole] = useState('teacher');
+  const [rememberMe, setRememberMe] = useState(true);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [formData, setFormData] = useState({
+    email: 'teacher@example.com',
+    password: '123456'
+  });
 
-  const [formData, setFormData] =
-    useState({
-      email: '',
-      password: ''
-    });
+  const demoAccounts = [
+    {
+      role: 'teacher',
+      label: 'Teacher',
+      icon: '👨‍🏫',
+      email: 'teacher@example.com',
+      password: '123456',
+      accentColor: '#2563EB',
+      gradient: 'linear-gradient(135deg, #2563EB, #1D4ED8)'
+    },
+    {
+      role: 'student',
+      label: 'Student',
+      icon: '👨‍🎓',
+      email: 'student@example.com',
+      password: '123456',
+      accentColor: '#059669',
+      gradient: 'linear-gradient(135deg, #059669, #047857)'
+    },
+    {
+      role: 'coordinator',
+      label: 'Coordinator',
+      icon: '👨‍💼',
+      email: 'coordinator@example.com',
+      password: '123456',
+      accentColor: '#7C3AED',
+      gradient: 'linear-gradient(135deg, #7C3AED, #6D28D9)'
+    }
+  ];
 
-  const handleChange =
-    (e) => {
+  const currentRoleConfig =
+    demoAccounts.find((account) => account.role === selectedRole) ||
+    demoAccounts[0];
+
+  const handleSelectRole = (account) => {
+    setSelectedRole(account.role);
 
     setFormData({
-
-      ...formData,
-
-      [e.target.name]:
-      e.target.value
-
+      email: account.email,
+      password: account.password
     });
 
+    setErrorMessage('');
   };
 
-  const handleSubmit =
-    async (e) => {
+  const handleChange = (e) => {
+    setErrorMessage('');
 
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setErrorMessage('');
     setLoading(true);
 
     try {
+      const response = await loginUser(formData);
 
-      const response =
-        await loginUser(formData);
+      // Save authentication token and user details.
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
 
-      console.log(response);
-
-      // Save Token
-      localStorage.setItem(
-        'token',
-        response.token
-      );
-
-      // Save User
-      localStorage.setItem(
-
-        'user',
-
-        JSON.stringify(
-          response.user
-        )
-
-      );
-
-      // Teacher
-      if (
-        response.user.role ===
-        'teacher'
-      ) {
-
-        navigate(
-          '/teacher-dashboard'
-        );
-
+      // Remember the email when requested.
+      if (rememberMe) {
+        localStorage.setItem('remembered_email', formData.email);
+      } else {
+        localStorage.removeItem('remembered_email');
       }
 
-      // Student
-      else if (
-        response.user.role ===
-        'student'
-      ) {
-
-        navigate(
-          '/student-dashboard'
-        );
-
-      }
-
-      // Coordinator
-      else if (
-        response.user.role ===
-        'coordinator'
-      ) {
-
-        navigate(
-          '/coordinator-dashboard'
-        );
-
-      }
-
+      // Redirect users directly to Dashboard at /
+      navigate('/');
     } catch (error) {
+      console.error(error);
 
-      console.log(error);
-
-      alert(
-
+      const message =
         error.response?.data?.message ||
+        error.response?.data?.error ||
+        'Unable to sign in. Please check your email and password.';
 
-        'Login Failed'
-
-      );
-
+      setErrorMessage(message);
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   return (
+    <div className="login-wide-container">
+      <div className="login-wide-card">
 
-    <div className="login-container">
+        {/* LEFT PANEL: ACADEMIC BRANDING */}
+        <div className="login-hero-panel">
+          <div className="hero-content">
 
-      <form
-        className="login-form"
-        onSubmit={handleSubmit}
-      >
+            <div className="hero-top-badge">
+              <span className="hero-badge-icon">🎓</span>
+              <span>ACADEMIC PERFORMANCE MANAGEMENT SYSTEM</span>
+            </div>
 
-        <h2>
-          Student Academic
-          Performance System
-        </h2>
+            <h1 className="hero-heading">
+              Track Progress. Achieve Excellence.
+            </h1>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+            <p className="hero-tagline">
+              A unified academic platform designed to simplify student
+              performance tracking, assessment management, grade calculation,
+              and academic communication.
+            </p>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+            {/* PLATFORM FEATURES */}
+            <div className="hero-features-list">
 
-        <button type="submit">
+              <div className="feature-item">
+                <div className="feature-icon-box">📊</div>
 
-          {
-            loading
-            ? 'Loading...'
-            : 'Login'
-          }
+                <div>
+                  <h4>Performance Analytics</h4>
+                  <p>
+                    Monitor subject-wise marks, percentages, grades, and
+                    academic progress.
+                  </p>
+                </div>
+              </div>
 
-        </button>
+              <div className="feature-item">
+                <div className="feature-icon-box">👨‍🏫</div>
 
-        <div className="demo-users">
+                <div>
+                  <h4>Dedicated User Portals</h4>
+                  <p>
+                    Personalized dashboards for students, teachers, and
+                    academic coordinators.
+                  </p>
+                </div>
+              </div>
 
-          <h4>
-            Demo Users
-          </h4>
+              <div className="feature-item">
+                <div className="feature-icon-box">📢</div>
 
-          <p>
-            Teacher:
-            teacher@example.com
-          </p>
+                <div>
+                  <h4>Academic Announcements</h4>
+                  <p>
+                    Share important notices and updates with students and
+                    faculty.
+                  </p>
+                </div>
+              </div>
 
-          <p>
-            Student:
-            student@example.com
-          </p>
+            </div>
 
-          <p>
-            Coordinator:
-            coordinator@example.com
-          </p>
+            {/* SYSTEM STATUS */}
+            <div className="hero-footer-status">
+              <span className="status-dot"></span>
+              <span>Academic Management Portal</span>
+            </div>
 
-          <p>
-            Password: 123456
-          </p>
-
+          </div>
         </div>
 
-      </form>
+        {/* RIGHT PANEL: LOGIN FORM */}
+        <div className="login-form-panel">
 
+          <div className="form-panel-header">
+            <h2>Welcome Back!</h2>
+            <p>
+              Sign in to access your academic dashboard and manage your
+              activities.
+            </p>
+          </div>
+
+          {/* ROLE SELECTOR */}
+          <div className="role-pills-bar">
+            {demoAccounts.map((account) => (
+              <button
+                type="button"
+                key={account.role}
+                onClick={() => handleSelectRole(account)}
+                className={`role-pill-btn ${selectedRole === account.role ? 'active' : ''
+                  }`}
+                style={
+                  selectedRole === account.role
+                    ? {
+                      borderColor: account.accentColor,
+                      backgroundColor: `${account.accentColor}12`,
+                      color: account.accentColor
+                    }
+                    : {}
+                }
+              >
+                <span className="role-pill-icon">{account.icon}</span>
+                <span className="role-pill-name">{account.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* ERROR MESSAGE */}
+          {errorMessage && (
+            <div className="form-error-alert" role="alert">
+              <span>⚠️</span>
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {/* LOGIN FORM */}
+          <form
+            className="login-fields-form"
+            onSubmit={handleSubmit}
+          >
+
+            {/* EMAIL ADDRESS */}
+            <div className="form-group">
+              <label htmlFor="email">Email Address</label>
+
+              <div className="input-wrap">
+                <span className="input-icon">✉️</span>
+
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Enter your registered email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="username"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* PASSWORD */}
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+
+              <div className="input-wrap">
+                <span className="input-icon">🔒</span>
+
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  autoComplete="current-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                  title={
+                    showPassword ? 'Hide password' : 'Show password'
+                  }
+                  aria-label={
+                    showPassword ? 'Hide password' : 'Show password'
+                  }
+                >
+                  {showPassword ? '👁️' : '🙈'}
+                </button>
+              </div>
+            </div>
+
+            {/* LOGIN OPTIONS */}
+            <div className="form-options">
+              <label className="remember-checkbox">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                />
+
+                <span>Remember me</span>
+              </label>
+
+              <span className="pass-pill">
+                Demo password: <code>123456</code>
+              </span>
+            </div>
+
+            {/* SIGN-IN BUTTON */}
+            <button
+              type="submit"
+              className="login-action-btn"
+              disabled={loading}
+              style={{
+                background: currentRoleConfig.gradient,
+                boxShadow: `0 4px 14px ${currentRoleConfig.accentColor}35`
+              }}
+            >
+              {loading
+                ? 'Signing in...'
+                : `Sign In as ${currentRoleConfig.label} →`}
+            </button>
+
+          </form>
+
+          {/* DEMO ACCOUNT SHORTCUTS */}
+          <div className="demo-accounts-bar">
+            <span className="demo-bar-label">Demo Accounts:</span>
+
+            <div className="demo-chips-row">
+              {demoAccounts.map((account) => (
+                <button
+                  key={account.role}
+                  type="button"
+                  className={`quick-chip ${selectedRole === account.role ? 'active' : ''
+                    }`}
+                  onClick={() => handleSelectRole(account)}
+                  title={`Switch to ${account.label}`}
+                >
+                  <span>{account.icon}</span>
+                  <span>{account.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* FOOTER */}
+          <div className="login-footer">
+            <p>
+              Secure access to your academic workspace.
+            </p>
+          </div>
+
+        </div>
+      </div>
     </div>
-
   );
-
 }
 
 export default LoginForm;

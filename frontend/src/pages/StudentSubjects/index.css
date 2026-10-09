@@ -1,237 +1,145 @@
 .student-subjects {
-
   min-height: 100vh;
-
-  background: #F1F5F9;
-
+  background: #F8FAFC;
+  font-family: inherit;
 }
 
-
-/* CONTENT */
-
+/* CONTENT CONTAINER */
 .student-subjects-content {
-
-  padding: 40px;
-
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
 }
-
 
 /* TOP SECTION */
-
 .subjects-top {
-
-  margin-bottom: 35px;
-
+  margin-bottom: 32px;
 }
 
 .subjects-top h1 {
-
   margin: 0;
-
   color: #0F172A;
-
-  font-size: 38px;
-
-  font-weight: 700;
-
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .subjects-top p {
-
-  margin-top: 12px;
-
+  margin-top: 8px;
   color: #64748B;
-
-  font-size: 16px;
-
+  font-size: 15px;
+  font-weight: 400;
 }
-
 
 /* GRID */
-
 .subject-grid {
-
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(300px, 1fr));
-
-  gap: 28px;
-
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
 }
 
-
 /* CARD */
-
 .subject-card {
-
   background: #FFFFFF;
-
-  padding: 30px;
-
-  border-radius: 24px;
-
-  box-shadow:
-    0 6px 18px rgba(15,23,42,0.08);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border 0.3s ease;
-
-  border:
-    1px solid transparent;
-
+  padding: 28px;
+  border-radius: 20px;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .subject-card:hover {
-
-  transform: translateY(-8px);
-
-  border-color: #2563EB;
-
-  box-shadow:
-    0 12px 24px rgba(37,99,235,0.15);
-
+  transform: translateY(-4px);
+  border-color: #059669;
+  box-shadow: 0 12px 28px rgba(5, 150, 105, 0.12);
 }
-
 
 /* ICON BOX */
-
 .subject-icon {
-
-  width: 75px;
-
-  height: 75px;
-
-  border-radius: 20px;
-
-  background: #DBEAFE;
-
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: #ECFDF5;
+  border: 1px solid #D1FAE5;
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  font-size: 34px;
-
-  margin-bottom: 24px;
-
+  font-size: 26px;
+  margin-bottom: 18px;
 }
-
 
 /* SUBJECT TITLE */
-
 .subject-card h3 {
-
-  margin-top: 0;
-
-  margin-bottom: 18px;
-
-  color: #2563EB;
-
-  font-size: 24px;
-
+  margin: 0 0 16px;
+  color: #0F172A;
+  font-size: 20px;
   font-weight: 700;
-
+  letter-spacing: -0.01em;
 }
 
-
-/* TEXT */
-
+/* META INFO ROWS */
 .subject-card p {
-
-  margin: 12px 0;
-
+  margin: 6px 0;
   color: #475569;
-
-  line-height: 1.8;
-
-  font-size: 15px;
-
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #F8FAFC;
+  border-radius: 10px;
+  border: 1px solid #F1F5F9;
 }
-
-
-/* STRONG */
 
 .subject-card strong {
-
   color: #0F172A;
-
+  font-weight: 600;
 }
 
-
-/* EMPTY BOX */
-
-.empty-box {
-
-  background: white;
-
-  padding: 30px;
-
-  border-radius: 20px;
-
-  text-align: center;
-
-  color: #64748B;
-
-  font-size: 16px;
-
-  box-shadow:
-    0 4px 12px rgba(0,0,0,0.08);
-
-}
-
-
-/* LOADING BOX */
-
+/* EMPTY & LOADING BOXES */
+.empty-box,
 .loading-box {
-
-  background: white;
-
-  padding: 30px;
-
-  border-radius: 20px;
-
+  background: #FFFFFF;
+  padding: 40px;
+  border-radius: 18px;
+  border: 1.5px solid #E2E8F0;
   text-align: center;
-
   color: #64748B;
-
   font-size: 16px;
-
-  box-shadow:
-    0 4px 12px rgba(0,0,0,0.08);
-
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  grid-column: 1 / -1;
 }
-
 
 /* RESPONSIVE */
-
 @media screen and (max-width: 768px) {
-
   .student-subjects-content {
-
-    padding: 20px;
-
+    padding: 24px 16px;
   }
 
   .subject-grid {
-
     grid-template-columns: 1fr;
-
+    gap: 16px;
   }
 
   .subjects-top h1 {
-
-    font-size: 30px;
-
+    font-size: 26px;
   }
 
   .subject-card {
-
-    padding: 24px;
-
+    padding: 22px 18px;
   }
+}
 
+@media screen and (max-width: 640px) {
+  .subjects-top h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .subject-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
 }

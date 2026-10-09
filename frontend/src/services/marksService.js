@@ -1,91 +1,21 @@
-import axios
-from 'axios';
+import api from './api';
 
-const API =
-'https://academic-performance-1.onrender.com/api/marks';
-
-export const addMarks =
-async (formData) => {
-
-  const token =
-    localStorage.getItem('token');
-
-  const response =
-    await axios.post(
-
-      API,
-
-      formData,
-
-      {
-
-        headers: {
-
-          Authorization:
-          `Bearer ${token}`
-
-        }
-
-      }
-
-    );
-
+export const addMarks = async (formData) => {
+  const response = await api.post('/marks', formData);
   return response.data;
-
 };
 
-export const getMarks =
-async () => {
-
-  const token =
-    localStorage.getItem('token');
-
-  const response =
-    await axios.get(
-
-      API,
-
-      {
-
-        headers: {
-
-          Authorization:
-          `Bearer ${token}`
-
-        }
-
-      }
-
-    );
-
+export const getMarks = async () => {
+  const response = await api.get('/marks');
   return response.data;
-
 };
 
-export const getStudentMarks =
-async () => {
-
-  const token =
-    localStorage.getItem('token');
-
-  const response =
-    await axios.get(
-
-      `${API}/student`,
-
-      {
-
-        headers: {
-
-          Authorization:
-          `Bearer ${token}`
-
-        }
-
-      }
-
-    );
-
+export const getStudentMarks = async () => {
+  const response = await api.get('/marks/student');
   return response.data;
+};
 
+export const deleteMark = async (id) => {
+  const response = await api.delete(`/marks/${id}`);
+  return response.data;
 };

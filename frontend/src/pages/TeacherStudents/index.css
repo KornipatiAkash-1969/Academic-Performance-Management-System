@@ -1,180 +1,121 @@
 .teacher-students-page {
-
   min-height: 100vh;
-
-  background: #F1F5F9;
-
+  background: #F8FAFC;
 }
-
 
 /* CONTENT */
-
 .teacher-students-content {
-
-  padding: 40px;
-
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 36px 24px;
 }
 
-
 /* TOP */
-
 .students-top {
-
-  margin-bottom: 30px;
-
+  margin-bottom: 28px;
 }
 
 .students-top h1 {
-
   margin: 0;
-
   color: #0F172A;
-
-  font-size: 36px;
-
-  font-weight: bold;
-
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .students-top p {
-
-  margin-top: 10px;
-
+  margin-top: 6px;
   color: #64748B;
-
+  font-size: 15px;
 }
-
 
 /* GRID */
-
 .students-grid {
-
   display: grid;
-
-  grid-template-columns:
-    repeat(auto-fit, minmax(280px, 1fr));
-
-  gap: 24px;
-
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
 }
 
-
 /* CARD */
-
 .student-card {
-
   background: white;
-
-  padding: 28px;
-
-  border-radius: 22px;
-
-  box-shadow:
-    0 4px 14px rgba(0,0,0,0.08);
-
-  transition: 0.3s;
-
-  border:
-    1px solid transparent;
-
+  padding: 26px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  border: 1.5px solid #E2E8F0;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .student-card:hover {
-
-  transform: translateY(-6px);
-
+  transform: translateY(-4px);
   border-color: #2563EB;
-
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
 }
-
 
 /* ICON */
-
 .student-icon {
-
-  font-size: 48px;
-
-  margin-bottom: 18px;
-
+  width: 52px;
+  height: 52px;
+  background: #EFF6FF;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 16px;
 }
-
 
 /* TITLE */
-
 .student-card h3 {
-
-  margin-top: 0;
-
-  margin-bottom: 16px;
-
-  color: #2563EB;
-
-  font-size: 24px;
-
+  margin: 0 0 12px;
+  color: #0F172A;
+  font-size: 20px;
+  font-weight: 700;
 }
-
 
 /* TEXT */
-
 .student-card p {
-
-  margin: 10px 0;
-
-  color: #475569;
-
-  line-height: 1.7;
-
+  margin: 6px 0;
+  color: #64748B;
+  font-size: 13.5px;
+  line-height: 1.5;
 }
 
+.student-card p strong {
+  color: #1E293B;
+  font-weight: 600;
+}
 
 /* EMPTY */
-
-.empty-box {
-
-  background: white;
-
-  padding: 28px;
-
-  border-radius: 18px;
-
-  text-align: center;
-
-  color: #64748B;
-
-}
-
-
-/* LOADING */
-
+.empty-box,
 .loading-box {
-
   background: white;
-
-  padding: 28px;
-
-  border-radius: 18px;
-
+  padding: 36px;
+  border-radius: 20px;
   text-align: center;
-
   color: #64748B;
-
+  border: 1px solid #E2E8F0;
+  font-weight: 500;
 }
-
-
-/* RESPONSIVE */
 
 @media screen and (max-width: 768px) {
-
   .teacher-students-content {
-
-    padding: 20px;
-
+    padding: 20px 16px;
   }
+}
 
+@media screen and (max-width: 640px) {
+  .students-top h1 {
+    font-size: 24px;
+  }
   .students-grid {
-
     grid-template-columns: 1fr;
-
+    gap: 16px;
   }
-
+  .student-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
 }

@@ -1,0 +1,77 @@
+/* ============================================================
+   DASHBOARD LAYOUT STYLING
+   ============================================================ */
+
+.app-layout {
+  min-height: 100vh;
+  width: 100%;
+  background: #F8FAFC;
+  position: relative;
+  display: flex;
+  overflow-x: hidden;
+}
+
+/* MOBILE BACKDROP OVERLAY */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* MAIN WRAPPER (Adjacent to fixed sidebar) */
+.layout-main-wrapper {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+/* WHEN DESKTOP SIDEBAR IS COLLAPSED */
+.app-layout.layout-collapsed .layout-main-wrapper {
+  margin-left: 76px;
+  width: calc(100% - 76px);
+}
+
+/* CONTENT CONTAINER */
+.layout-content-area {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  animation: fadeInContent 0.25s ease-out;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE (MOBILE & TABLET)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .layout-main-wrapper,
+  .app-layout.layout-collapsed .layout-main-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}

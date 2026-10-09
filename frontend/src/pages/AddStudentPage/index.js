@@ -4,8 +4,7 @@ import {
   useState
 } from 'react';
 
-import TeacherHeader
-from '../../components/common/TeacherHeader';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import {
   createStudent
@@ -108,11 +107,7 @@ function AddStudentPage() {
 
   return (
 
-    <div className="student-page">
-
-      {/* HEADER */}
-
-      <TeacherHeader />
+    <DashboardLayout role="teacher" title="Add Student">
 
 
       {/* CONTENT */}
@@ -293,10 +288,8 @@ function AddStudentPage() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default AddStudentPage;

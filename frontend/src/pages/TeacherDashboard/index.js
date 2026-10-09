@@ -1,14 +1,22 @@
 import './index.css';
 
 import {
+  useState,
+  useEffect
+} from 'react';
+
+import {
   Link
 } from 'react-router-dom';
 
-import TeacherHeader
-from '../../components/common/TeacherHeader';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import NotesList
 from '../../components/common/NotesList';
+
+import {
+  getDashboardSummary
+} from '../../services/dashboardService';
 
 function TeacherDashboard() {
 
@@ -29,13 +37,31 @@ function TeacherDashboard() {
 
   }
 
+  const [summary, setSummary] = useState({
+    totalStudents: 0,
+    totalSubjects: 0,
+    averageMarks: 0,
+    highestPercentage: 0
+  });
+
+  useEffect(() => {
+    loadSummary();
+  }, []);
+
+  const loadSummary = async () => {
+    try {
+      const res = await getDashboardSummary();
+      if (res && res.success && res.data) {
+        setSummary(res.data);
+      }
+    } catch (err) {
+      console.error('Failed to load dashboard summary:', err);
+    }
+  };
+
   return (
 
-    <div className="teacher-dashboard">
-
-      {/* HEADER */}
-
-      <TeacherHeader />
+    <DashboardLayout role="teacher" title="Teacher Dashboard">
 
 
       {/* CONTENT */}
@@ -160,6 +186,29 @@ function TeacherDashboard() {
 
         </div>
 
+        {/* STATS OVERVIEW */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '35px' }}>
+          <div style={{ background: 'white', padding: '24px', borderRadius: '18px', boxShadow: '0 4px 14px rgba(0,0,0,0.06)', borderLeft: '5px solid #2563EB' }}>
+            <span style={{ color: '#64748B', fontSize: '14px', fontWeight: '500' }}>Total Students</span>
+            <h2 style={{ margin: '8px 0 0', color: '#0F172A', fontSize: '28px' }}>{summary.totalStudents}</h2>
+          </div>
+          <div style={{ background: 'white', padding: '24px', borderRadius: '18px', boxShadow: '0 4px 14px rgba(0,0,0,0.06)', borderLeft: '5px solid #10B981' }}>
+            <span style={{ color: '#64748B', fontSize: '14px', fontWeight: '500' }}>Total Subjects</span>
+            <h2 style={{ margin: '8px 0 0', color: '#0F172A', fontSize: '28px' }}>{summary.totalSubjects}</h2>
+          </div>
+          <div style={{ background: 'white', padding: '24px', borderRadius: '18px', boxShadow: '0 4px 14px rgba(0,0,0,0.06)', borderLeft: '5px solid #F59E0B' }}>
+            <span style={{ color: '#64748B', fontSize: '14px', fontWeight: '500' }}>Class Average</span>
+            <h2 style={{ margin: '8px 0 0', color: '#0F172A', fontSize: '28px' }}>
+              {Number(summary.averageMarks || 0).toFixed(1)}%
+            </h2>
+          </div>
+          <div style={{ background: 'white', padding: '24px', borderRadius: '18px', boxShadow: '0 4px 14px rgba(0,0,0,0.06)', borderLeft: '5px solid #8B5CF6' }}>
+            <span style={{ color: '#64748B', fontSize: '14px', fontWeight: '500' }}>Highest Score</span>
+            <h2 style={{ margin: '8px 0 0', color: '#0F172A', fontSize: '28px' }}>
+              {Number(summary.highestPercentage || 0).toFixed(1)}%
+            </h2>
+          </div>
+        </div>
 
         {/* DASHBOARD GRID */}
 
@@ -192,7 +241,7 @@ function TeacherDashboard() {
           {/* STUDENTS */}
 
           <Link
-            to="/add-student"
+            to="/teacher-students"
             className="dashboard-box"
           >
 
@@ -203,15 +252,37 @@ function TeacherDashboard() {
             </div>
 
             <h3>
-              Students
+              Students List
             </h3>
 
             <p>
-              Add and manage students
+              View registered students
             </p>
 
           </Link>
 
+          {/* ADD STUDENT */}
+
+          <Link
+            to="/add-student"
+            className="dashboard-box"
+          >
+
+            <div className="box-icon">
+
+              ➕
+
+            </div>
+
+            <h3>
+              Add Student
+            </h3>
+
+            <p>
+              Create new student accounts
+            </p>
+
+          </Link>
 
           {/* MARKS */}
 
@@ -227,11 +298,11 @@ function TeacherDashboard() {
             </div>
 
             <h3>
-              Marks
+              Marks Management
             </h3>
 
             <p>
-              Add student marks
+              Add and manage student marks
             </p>
 
           </Link>
@@ -257,10 +328,8 @@ function TeacherDashboard() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default TeacherDashboard;

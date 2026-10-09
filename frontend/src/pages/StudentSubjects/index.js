@@ -5,8 +5,7 @@ import {
   useState
 } from 'react';
 
-import Header
-from '../../components/common/Header';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import {
   getSubjects
@@ -66,11 +65,7 @@ function StudentSubjects() {
 
   return (
 
-    <div className="student-subjects">
-
-      {/* HEADER */}
-
-      <Header />
+    <DashboardLayout role="student" title="My Subjects">
 
 
       {/* CONTENT */}
@@ -200,10 +195,8 @@ function StudentSubjects() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default StudentSubjects;

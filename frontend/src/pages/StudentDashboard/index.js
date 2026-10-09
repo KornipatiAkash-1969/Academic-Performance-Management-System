@@ -4,8 +4,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import Header
-from '../../components/common/Header';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import NotesList
 from '../../components/common/NotesList';
@@ -31,11 +30,7 @@ function StudentDashboard() {
 
   return (
 
-    <div className="student-dashboard">
-
-      {/* HEADER */}
-
-      <Header />
+    <DashboardLayout role="student" title="Student Dashboard">
 
 
       {/* CONTENT */}
@@ -124,10 +119,8 @@ function StudentDashboard() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default StudentDashboard;

@@ -4,8 +4,10 @@ import {
   useState
 } from 'react';
 
-import CoordinatorHeader
-from '../../components/common/CoordinatorHeader';
+import DashboardLayout from '../../components/common/DashboardLayout';
+
+import NotesList
+from '../../components/common/NotesList';
 
 import {
   createNote
@@ -19,46 +21,37 @@ function CoordinatorNotes() {
 
   const [formData, setFormData] =
     useState({
-
       title: '',
-      message: ''
-
+      message: '',
+      target_role: 'both'
     });
 
   const [loading, setLoading] =
     useState(false);
 
+  const [refreshKey, setRefreshKey] =
+    useState(0);
+
   // ======================================
   // HANDLE INPUT
   // ======================================
 
-  const handleChange =
-    (e) => {
-
+  const handleChange = (e) => {
     setFormData({
-
       ...formData,
-
-      [e.target.name]:
-      e.target.value
-
+      [e.target.name]: e.target.value
     });
-
   };
 
   // ======================================
   // SUBMIT FORM
   // ======================================
 
-  const handleSubmit =
-    async (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
     try {
-
       await createNote(formData);
 
       alert(
@@ -66,78 +59,51 @@ function CoordinatorNotes() {
       );
 
       // RESET FORM
-
       setFormData({
-
         title: '',
-        message: ''
-
+        message: '',
+        target_role: 'both'
       });
 
+      // TRIGGER NOTES REFRESH
+      setRefreshKey((prev) => prev + 1);
+
     } catch (error) {
-
       console.log(error);
-
       alert(
-
         error.response?.data?.message ||
-
         'Failed To Send Note'
-
       );
-
     } finally {
-
       setLoading(false);
-
     }
-
   };
 
   return (
-
-    <div className="notes-page">
-
-      {/* HEADER */}
-
-      <CoordinatorHeader />
-
+    <DashboardLayout role="coordinator" title="Coordinator Notes">
 
       {/* CONTENT */}
-
       <div className="notes-content">
-
         {/* TOP */}
-
         <div className="notes-top">
-
           <h1>
             Coordinator Notes
           </h1>
-
           <p>
-            Send important academic notes
-            to students and teachers
+            Send important academic notes to students, teachers, or both
           </p>
-
         </div>
 
-
         {/* FORM */}
-
         <form
           className="notes-form"
           onSubmit={handleSubmit}
         >
-
           {/* TITLE */}
-
           <div className="input-group">
-
             <label>
               Note Title
             </label>
-
             <input
               type="text"
               name="title"
@@ -146,18 +112,33 @@ function CoordinatorNotes() {
               onChange={handleChange}
               required
             />
-
           </div>
 
+          {/* TARGET AUDIENCE OPTION */}
+          <div className="input-group">
+            <label>
+              Send Note To (Target Audience)
+            </label>
+            <select
+              name="target_role"
+              value={formData.target_role}
+              onChange={handleChange}
+              required
+            >
+              <option value="both">👥 Both (Students & Teachers)</option>
+              <option value="student">👨‍🎓 Students Only</option>
+              <option value="teacher">👨‍🏫 Teachers Only</option>
+            </select>
+            <small>
+              Select who should be able to view this note on their dashboard
+            </small>
+          </div>
 
           {/* MESSAGE */}
-
           <div className="input-group">
-
             <label>
               Note Message
             </label>
-
             <textarea
               name="message"
               placeholder="Enter Note Message"
@@ -165,35 +146,31 @@ function CoordinatorNotes() {
               onChange={handleChange}
               required
             />
-
           </div>
 
-
           {/* BUTTON */}
-
           <button
             type="submit"
             disabled={loading}
           >
-
             {
-
               loading
               ? 'Sending Note...'
               : 'Send Note'
-
             }
-
           </button>
-
         </form>
 
+        {/* PREVIOUS NOTES */}
+        <div style={{ marginTop: '40px', maxWidth: '800px' }}>
+          <h2 style={{ color: '#0F172A', marginBottom: '20px', fontSize: '24px' }}>
+            Previously Posted Notes
+          </h2>
+          <NotesList key={refreshKey} />
+        </div>
       </div>
-
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default CoordinatorNotes;

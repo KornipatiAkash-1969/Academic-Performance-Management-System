@@ -1,143 +1,174 @@
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate
 } from 'react-router-dom';
 
+import CreateTeacher from '../pages/CreateTeacher';
+import LoginPage from '../pages/LoginPage';
+import TeacherDashboard from '../pages/TeacherDashboard';
+import StudentDashboard from '../pages/StudentDashboard';
+import CoordinatorDashboard from '../pages/CoordinatorDashboard';
+import SubjectManagementPage from '../pages/SubjectManagementPage';
+import StudentSubjects from '../pages/StudentSubjects';
+import AddStudentPage from '../pages/AddStudentPage';
+import AddMarksPage from '../pages/AddMarksPage';
+import StudentMarks from '../pages/StudentMarks';
+import CoordinatorNotes from '../pages/CoordinatorNotes';
+import TeacherStudents from '../pages/TeacherStudents';
+import MyAccountPage from '../pages/MyAccountPage';
+import ProtectedRoute from '../components/common/ProtectedRoute';
 
-import CreateTeacher
-from '../pages/CreateTeacher';
+// ROOT DASHBOARD ROUTER: URL http://localhost:3000/
+function DashboardRouter() {
+  const token = localStorage.getItem('token');
+  let user = null;
 
-import LoginPage
-from '../pages/LoginPage';
+  try {
+    user = JSON.parse(localStorage.getItem('user'));
+  } catch (error) {
+    user = null;
+  }
 
-import TeacherDashboard
-from '../pages/TeacherDashboard';
+  // Not logged in -> must go to /login
+  if (!token || !user) {
+    return <Navigate to="/login" replace />;
+  }
 
-import StudentDashboard
-from '../pages/StudentDashboard';
+  // Render role-specific dashboard at /
+  if (user.role === 'teacher') {
+    return <TeacherDashboard />;
+  } else if (user.role === 'coordinator') {
+    return <CoordinatorDashboard />;
+  } else if (user.role === 'student') {
+    return <StudentDashboard />;
+  }
 
-import CoordinatorDashboard
-from '../pages/CoordinatorDashboard';
-
-import SubjectManagementPage
-from '../pages/SubjectManagementPage';
-
-import StudentSubjects
-from '../pages/StudentSubjects';
-
-
-import AddStudentPage
-from '../pages/AddStudentPage';
-
-import AddMarksPage
-from '../pages/AddMarksPage';
-
-import StudentMarks
-from '../pages/StudentMarks';
-
-import CoordinatorNotes
-from '../pages/CoordinatorNotes';
-
-import TeacherStudents
-from '../pages/TeacherStudents';
-
+  return <Navigate to="/login" replace />;
+}
 
 function AppRoutes() {
-
   return (
-
     <BrowserRouter>
-
       <Routes>
+        {/* DASHBOARD AT ROOT (http://localhost:3000/) */}
+        <Route path="/" element={<DashboardRouter />} />
 
-        <Route
-          path="/"
-          element={<LoginPage />}
-        />
+        {/* LOGIN PAGE (http://localhost:3000/login) */}
+        <Route path="/login" element={<LoginPage />} />
 
+        {/* LEGACY DASHBOARD PATHS */}
         <Route
           path="/teacher-dashboard"
           element={
-            <TeacherDashboard />
+            <ProtectedRoute allowedRoles={['teacher']}>
+              <TeacherDashboard />
+            </ProtectedRoute>
           }
         />
-
-        <Route
-          path="/teacher-students"
-          element={
-            <TeacherStudents />
-          }
-        />
-
-        <Route
-          path="/subjects"
-          element={
-            <SubjectManagementPage />
-          }
-        />
-
-        <Route
-          path="/add-student"
-          element={
-            <AddStudentPage />
-          }
-        />
-
-        <Route
-          path="/add-marks"
-          element={
-            <AddMarksPage />
-          }
-        />
-
         <Route
           path="/student-dashboard"
           element={
-            <StudentDashboard />
+            <ProtectedRoute allowedRoles={['student']}>
+              <StudentDashboard />
+            </ProtectedRoute>
           }
         />
-
-        <Route
-          path="/student-subjects"
-          element={
-            <StudentSubjects />
-          }
-        />
-
-        <Route
-          path="/student-marks"
-          element={
-            <StudentMarks />
-          }
-        />
-
-        <Route
-          path="/create-teacher"
-          element={<CreateTeacher />}
-        />
-
         <Route
           path="/coordinator-dashboard"
           element={
-            <CoordinatorDashboard />
+            <ProtectedRoute allowedRoles={['coordinator']}>
+              <CoordinatorDashboard />
+            </ProtectedRoute>
           }
         />
 
+        {/* TEACHER ROUTES */}
+        <Route
+          path="/teacher-students"
+          element={
+            <ProtectedRoute allowedRoles={['teacher']}>
+              <TeacherStudents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/subjects"
+          element={
+            <ProtectedRoute allowedRoles={['teacher']}>
+              <SubjectManagementPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-student"
+          element={
+            <ProtectedRoute allowedRoles={['teacher']}>
+              <AddStudentPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-marks"
+          element={
+            <ProtectedRoute allowedRoles={['teacher']}>
+              <AddMarksPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* STUDENT ROUTES */}
+        <Route
+          path="/student-subjects"
+          element={
+            <ProtectedRoute allowedRoles={['student']}>
+              <StudentSubjects />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student-marks"
+          element={
+            <ProtectedRoute allowedRoles={['student']}>
+              <StudentMarks />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* COORDINATOR ROUTES */}
         <Route
           path="/coordinator-notes"
           element={
-            <CoordinatorNotes />
+            <ProtectedRoute allowedRoles={['coordinator']}>
+              <CoordinatorNotes />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/create-teacher"
+          element={
+            <ProtectedRoute allowedRoles={['coordinator']}>
+              <CreateTeacher />
+            </ProtectedRoute>
           }
         />
 
+        {/* MY ACCOUNT ROUTE (ALL ROLES) */}
+        <Route
+          path="/my-account"
+          element={
+            <ProtectedRoute allowedRoles={['teacher', 'student', 'coordinator']}>
+              <MyAccountPage />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* CATCH ALL - REDIRECT TO / */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-
     </BrowserRouter>
-
   );
-
 }
 
 export default AppRoutes;

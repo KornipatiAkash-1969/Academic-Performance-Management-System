@@ -4,8 +4,7 @@ import {
   useState
 } from 'react';
 
-import CoordinatorHeader
-from '../../components/common/CoordinatorHeader';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import {
   registerUser
@@ -98,11 +97,7 @@ function CreateTeacher() {
 
   return (
 
-    <div className="create-teacher-page">
-
-      {/* HEADER */}
-
-      <CoordinatorHeader />
+    <DashboardLayout role="coordinator" title="Create Teacher">
 
 
       {/* CONTENT */}
@@ -210,10 +205,8 @@ function CreateTeacher() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default CreateTeacher;

@@ -12,7 +12,7 @@ function TeacherHeader() {
 
     localStorage.clear();
 
-    window.location.href = '/';
+    window.location.href = '/login';
 
   };
 

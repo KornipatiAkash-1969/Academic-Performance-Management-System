@@ -68,6 +68,8 @@ CREATE TABLE IF NOT EXISTS notes (
 
   message TEXT NOT NULL,
 
+  target_role TEXT DEFAULT 'both',
+
   created_by INTEGER,
 
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP

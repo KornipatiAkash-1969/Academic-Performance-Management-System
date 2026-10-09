@@ -1,102 +1,87 @@
 .teacher-header {
-
   width: 100%;
-
-  background: #2563EB;
-
-  padding: 16px 40px;
-
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+  padding: 16px 36px;
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   box-sizing: border-box;
-
-  box-shadow:
-    0 2px 10px rgba(0,0,0,0.08);
-
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-
 
 /* LOGO */
-
 .teacher-logo {
-
   color: white;
-
-  font-size: 24px;
-
-  font-weight: bold;
-
-  letter-spacing: 0.5px;
-
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+.teacher-logo::before {
+  content: '👨‍🏫';
+  font-size: 24px;
+}
 
 /* NAVIGATION */
-
 .teacher-links {
-
   display: flex;
-
   align-items: center;
-
-  gap: 20px;
-
+  gap: 12px;
 }
 
-
 /* LINKS */
-
 .teacher-links a {
-
-  color: white;
-
+  color: #E2E8F0;
   text-decoration: none;
-
-  font-size: 16px;
-
-  font-weight: 500;
-
-  transition: 0.3s;
-
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  background: transparent;
 }
 
 .teacher-links a:hover {
-
-  opacity: 0.8;
-
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
 }
 
-
-/* BUTTON */
-
+/* LOGOUT BUTTON */
 .teacher-links button {
-
-  padding: 10px 18px;
-
-  border: none;
-
+  padding: 8px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 10px;
-
-  background: white;
-
-  color: #2563EB;
-
-  font-size: 15px;
-
-  font-weight: bold;
-
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 700;
   cursor: pointer;
-
-  transition: 0.3s;
-
+  transition: all 0.2s ease;
+  margin-left: 8px;
 }
 
 .teacher-links button:hover {
+  background: #EF4444;
+  border-color: #EF4444;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+}
 
-  background: #E2E8F0;
-
+@media (max-width: 768px) {
+  .teacher-header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+  .teacher-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
 }

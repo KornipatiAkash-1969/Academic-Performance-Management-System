@@ -5,8 +5,7 @@ import {
   useState
 } from 'react';
 
-import Header
-from '../../components/common/Header';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import {
   getStudentMarks
@@ -112,11 +111,7 @@ function StudentMarks() {
 
   return (
 
-    <div className="student-marks-page">
-
-      {/* HEADER */}
-
-      <Header />
+    <DashboardLayout role="student" title="Marks & Performance">
 
 
       {/* CONTENT */}
@@ -329,10 +324,8 @@ function StudentMarks() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default StudentMarks;

@@ -127,7 +127,15 @@ async (req, res) => {
           success: true,
 
           message:
-          'Student Added Successfully'
+          'Student Added Successfully',
+
+          user: {
+            id: this.lastID,
+            student_id: studentId,
+            name: name,
+            email: email,
+            role: 'student'
+          }
 
         });
 

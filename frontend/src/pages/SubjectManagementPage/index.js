@@ -5,8 +5,7 @@ import {
   useState
 } from 'react';
 
-import TeacherHeader
-from '../../components/common/TeacherHeader';
+import DashboardLayout from '../../components/common/DashboardLayout';
 
 import {
 
@@ -155,11 +154,7 @@ function SubjectManagementPage() {
 
   return (
 
-    <div className="subject-page">
-
-      {/* HEADER */}
-
-      <TeacherHeader />
+    <DashboardLayout role="teacher" title="Subject Management">
 
 
       {/* CONTENT */}
@@ -399,10 +394,8 @@ function SubjectManagementPage() {
 
       </div>
 
-    </div>
-
+    </DashboardLayout>
   );
-
 }
 
 export default SubjectManagementPage;

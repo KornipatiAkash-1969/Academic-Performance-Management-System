@@ -1,20 +1,58 @@
 .login-page {
-
   width: 100%;
-
-  height: 100vh;
-
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px 16px;
   display: flex;
-
   justify-content: center;
-
   align-items: center;
+  background: radial-gradient(ellipse at 15% 15%, #1E1B4B 0%, #0F172A 50%, #020617 100%);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
-  background:
-    linear-gradient(
-      135deg,
-      #2563EB,
-      #38BDF8
-    );
+/* AMBIENT GLOW ORBS */
+.bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 1;
+}
 
+.orb-1 {
+  top: -100px;
+  left: -100px;
+  width: 450px;
+  height: 450px;
+  background: #2563EB;
+}
+
+.orb-2 {
+  bottom: -120px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: #7C3AED;
+}
+
+.orb-3 {
+  top: 40%;
+  left: 60%;
+  width: 350px;
+  height: 350px;
+  background: #0284C7;
+  opacity: 0.15;
+}
+
+/* RESPONSIVE SCROLL ONLY ON SMALL MOBILE */
+@media (max-width: 860px) {
+  .login-page {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    padding: 24px 16px;
+  }
 }
