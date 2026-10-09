@@ -481,82 +481,81 @@
 }
 
 /* ============================================================
-   INPUT CONTAINER: GENEROUS SPACE BETWEEN LOGO/ICON & INPUT TEXT
+   FLEX INPUT CONTAINER: PERMANENTLY PREVENTS ICON OVERLAPPING
    ============================================================ */
-.input-wrap {
-  position: relative;
+.input-box {
   display: flex;
   align-items: center;
   width: 100%;
-}
-
-/* Icon / Logo positioned at left 14px */
-.input-icon {
-  position: absolute;
-  left: 14px;
-  color: #94A3B8;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  z-index: 2;
-}
-
-/* Input box with 44px left padding -> 14px gap between icon and text */
-.input-wrap input {
-  width: 100%;
-  padding: 13px 44px 13px 44px; /* 44px left padding creates clear space after the icon/logo */
+  background: #F8FAFC;
   border: 1.5px solid #E2E8F0;
   border-radius: 12px;
-  font-size: 13.5px;
-  color: #0F172A;
-  background: #F8FAFC;
-  box-sizing: border-box;
-  outline: none;
   transition: all 0.2s ease;
-  font-family: inherit;
+  box-sizing: border-box;
 }
 
-.input-wrap input::placeholder {
-  color: #94A3B8;
-  opacity: 0.85;
-}
-
-.input-wrap input:hover {
+.input-box:hover {
   border-color: #CBD5E1;
   background: #FFFFFF;
 }
 
-.input-wrap input:focus {
+.input-box:focus-within {
   background: #FFFFFF;
   border-color: #4F46E5;
   box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
 }
 
+/* Dedicated icon container on the left */
+.input-box-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 14px;
+  padding-right: 12px;
+  color: #94A3B8;
+  flex-shrink: 0;
+}
+
+/* Input field takes the rest of the flex container - 100% zero overlap */
+.input-box-field {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  padding: 13px 14px 13px 0 !important;
+  font-size: 13.5px;
+  color: #0F172A;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.input-box-field::placeholder {
+  color: #94A3B8;
+  opacity: 0.85;
+}
+
 .password-toggle-btn {
-  position: absolute;
-  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
   background: transparent;
   border: none;
   cursor: pointer;
   color: #94A3B8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  z-index: 2;
+  flex-shrink: 0;
+  height: 100%;
+  transition: color 0.2s ease;
 }
 
 .password-toggle-btn:hover {
   color: #475569;
-  background: #F1F5F9;
 }
 
-/* FORM OPTIONS ROW */
+/* ============================================================
+   FORM OPTIONS ROW
+   ============================================================ */
 .form-options-row {
   display: flex;
   justify-content: space-between;
@@ -620,7 +619,9 @@
   font-weight: 700;
 }
 
-/* SUBMIT BUTTON */
+/* ============================================================
+   SUBMIT BUTTON
+   ============================================================ */
 .login-action-btn {
   width: 100%;
   padding: 13px 18px;
@@ -672,7 +673,9 @@
   100% { transform: rotate(360deg); }
 }
 
-/* QUICK AUTOFILL SECTION */
+/* ============================================================
+   QUICK AUTOFILL SECTION
+   ============================================================ */
 .quick-fill-section {
   display: flex;
   align-items: center;
@@ -729,7 +732,9 @@
   border-radius: 50%;
 }
 
-/* FOOTER INFO */
+/* ============================================================
+   FOOTER INFO
+   ============================================================ */
 .login-footer-info {
   margin-top: 18px;
   text-align: center;
