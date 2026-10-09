@@ -56,10 +56,10 @@ function LoginForm() {
     demoAccounts.find((account) => account.role === selectedRole) ||
     demoAccounts[0];
 
-  // Start with empty or remembered email so the placeholder is clearly displayed
+  // Pre-populate with current role default credentials (or remembered email)
   const [formData, setFormData] = useState({
-    email: localStorage.getItem('remembered_email') || '',
-    password: ''
+    email: localStorage.getItem('remembered_email') || demoAccounts[0].email,
+    password: demoAccounts[0].password
   });
 
   const handleSelectRole = (account) => {
@@ -82,17 +82,31 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
+
+    if (!formData.email || !formData.email.trim()) {
+      setErrorMessage('Please enter your email address.');
+      return;
+    }
+
+    if (!formData.password) {
+      setErrorMessage('Please enter your password.');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await loginUser(formData);
+      const response = await loginUser({
+        email: formData.email.trim(),
+        password: formData.password
+      });
 
       // Save authentication token and user details.
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
 
       if (rememberMe) {
-        localStorage.setItem('remembered_email', formData.email);
+        localStorage.setItem('remembered_email', formData.email.trim());
       } else {
         localStorage.removeItem('remembered_email');
       }
@@ -100,11 +114,11 @@ function LoginForm() {
       // Redirect users directly to Dashboard at /
       navigate('/');
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
       const message =
         error.response?.data?.message ||
         error.response?.data?.error ||
-        'Unable to sign in. Please verify your email and password.';
+        (error.message ? `Connection error: ${error.message}` : 'Unable to sign in. Please verify your email and password.');
       setErrorMessage(message);
     } finally {
       setLoading(false);
