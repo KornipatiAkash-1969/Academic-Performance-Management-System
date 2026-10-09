@@ -140,21 +140,32 @@ app.get('/', (req, res) => {
 
 
 // ======================================
-// 404 ROUTE
+// SERVE FRONTEND STATIC BUILD IN PRODUCTION
 // ======================================
+const path = require('path');
+const fs = require('fs');
+const frontendBuildPath = path.join(__dirname, '../frontend/build');
 
-app.use('*', (req, res) => {
+if (fs.existsSync(frontendBuildPath)) {
+  app.use(express.static(frontendBuildPath));
 
-  res.status(404).json({
-
-    success: false,
-
-    message:
-    'Route Not Found'
-
+  app.get('*', (req, res) => {
+    if (req.originalUrl.startsWith('/api')) {
+      return res.status(404).json({
+        success: false,
+        message: 'API Route Not Found'
+      });
+    }
+    res.sendFile(path.join(frontendBuildPath, 'index.html'));
   });
-
-});
+} else {
+  app.use('*', (req, res) => {
+    res.status(404).json({
+      success: false,
+      message: 'Route Not Found'
+    });
+  });
+}
 
 
 // ======================================
