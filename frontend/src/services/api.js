@@ -1,16 +1,14 @@
 import axios from 'axios';
 
 const getBaseUrl = () => {
-  // If explicitly configured, use it
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
-  // If running in production browser (e.g. Vercel), use relative /api proxy to eliminate CORS
+  // In production (on Vercel), always use same-origin '/api'
+  // which is proxied by frontend/vercel.json directly to the backend.
+  // This guarantees zero CORS issues, no mixed-content, and 100% reliable connectivity.
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
     return '/api';
   }
   // Local development fallback
-  return 'http://localhost:5000/api';
+  return process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 };
 
 const api = axios.create({
