@@ -20,6 +20,7 @@ function LoginForm() {
       sublabel: 'Full Access',
       email: 'akash.kornipati1969@gmail.com',
       password: '123456',
+      placeholder: 'akash.kornipati1969@gmail.com',
       accentColor: '#4F46E5',
       accentLight: '#EEF2FF',
       gradient: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #4338CA 100%)',
@@ -31,6 +32,7 @@ function LoginForm() {
       sublabel: 'Faculty Portal',
       email: 'teacher@example.com',
       password: '123456',
+      placeholder: 'teacher@example.com',
       accentColor: '#2563EB',
       accentLight: '#EFF6FF',
       gradient: 'linear-gradient(135deg, #2563EB 0%, #3B82F6 50%, #1D4ED8 100%)',
@@ -42,6 +44,7 @@ function LoginForm() {
       sublabel: 'Learner Portal',
       email: 'student@example.com',
       password: '123456',
+      placeholder: 'student@example.com',
       accentColor: '#059669',
       accentLight: '#ECFDF5',
       gradient: 'linear-gradient(135deg, #059669 0%, #10B981 50%, #047857 100%)',
@@ -53,9 +56,10 @@ function LoginForm() {
     demoAccounts.find((account) => account.role === selectedRole) ||
     demoAccounts[0];
 
+  // Start with empty or remembered email so the placeholder is clearly displayed
   const [formData, setFormData] = useState({
-    email: currentRoleConfig.email,
-    password: currentRoleConfig.password
+    email: localStorage.getItem('remembered_email') || '',
+    password: ''
   });
 
   const handleSelectRole = (account) => {
@@ -277,7 +281,7 @@ function LoginForm() {
               </label>
               <div className="input-wrap">
                 <span className="input-icon">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
@@ -286,7 +290,11 @@ function LoginForm() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder="Enter registered email"
+                  placeholder={
+                    selectedRole === 'coordinator'
+                      ? 'akash.kornipati1969@gmail.com'
+                      : currentRoleConfig.placeholder || 'Enter registered email'
+                  }
                   value={formData.email}
                   onChange={handleChange}
                   autoComplete="username"
@@ -303,7 +311,7 @@ function LoginForm() {
               </div>
               <div className="input-wrap">
                 <span className="input-icon">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                   </svg>
@@ -312,7 +320,7 @@ function LoginForm() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   name="password"
-                  placeholder="Enter password"
+                  placeholder="Enter password (e.g. 123456)"
                   value={formData.password}
                   onChange={handleChange}
                   autoComplete="current-password"
