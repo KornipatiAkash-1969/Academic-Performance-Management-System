@@ -18,9 +18,9 @@ function LoginForm() {
       role: 'coordinator',
       label: 'Coordinator',
       sublabel: 'Full Access',
-      email: 'akash.kornipati1969@gmail.com',
+      email: 'coordinator@example.com',
       password: '123456',
-      placeholder: 'akash.kornipati1969@gmail.com',
+      placeholder: 'coordinator@example.com',
       accentColor: '#4F46E5',
       accentLight: '#EEF2FF',
       gradient: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #4338CA 100%)',
@@ -290,11 +290,7 @@ function LoginForm() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder={
-                    selectedRole === 'coordinator'
-                      ? 'akash.kornipati1969@gmail.com'
-                      : currentRoleConfig.placeholder || 'Enter registered email'
-                  }
+                  placeholder={currentRoleConfig.placeholder || 'coordinator@example.com'}
                   value={formData.email}
                   onChange={handleChange}
                   autoComplete="username"
