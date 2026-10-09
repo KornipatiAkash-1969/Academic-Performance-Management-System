@@ -32,9 +32,14 @@ function ProtectedRoute({
     return <Navigate to="/login" replace />;
   }
 
+  const role = (user.role || '').toLowerCase().trim();
+
   // Role Not Allowed
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+  if (allowedRoles) {
+    const normalizedAllowed = allowedRoles.map((r) => r.toLowerCase().trim());
+    if (!normalizedAllowed.includes(role)) {
+      return <Navigate to="/" replace />;
+    }
   }
 
   return children;

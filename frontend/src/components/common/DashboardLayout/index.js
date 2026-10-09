@@ -25,7 +25,7 @@ function DashboardLayout({ children, role: propRole, title }) {
     user = {};
   }
 
-  const role = propRole || user.role || 'student';
+  const role = (propRole || user.role || 'student').toLowerCase().trim();
 
   // Toggle collapse and persist preference
   const handleToggleCollapse = () => {

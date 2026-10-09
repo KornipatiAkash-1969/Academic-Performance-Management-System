@@ -243,15 +243,15 @@ notes
 
 # 🔐 Authentication & Roles
 
-The system supports three different user roles:
+The system supports three different user roles with built-in demo credentials for immediate testing:
 
-```text
-Teacher
-Student
-Coordinator
-```
+| Role | Email Address | Password | Permissions & Portals |
+|------|---------------|----------|-----------------------|
+| 👨‍💼 **Coordinator** | `coordinator@example.com` | `123456` | Create Teachers, Post Academic Announcements, Manage Faculty |
+| 👨‍🏫 **Teacher** | `teacher@example.com` | `123456` | Manage Subjects, Add Students, Enter Marks & Assessments |
+| 👨‍🎓 **Student** | `student@example.com` | `123456` | View Enrolled Subjects, Track Marks, Grades & Performance |
 
-Each role has its own login and dashboard.
+Each role features a dedicated, role-gated portal and dashboard layout:
 
 ```text
                          Login
@@ -402,7 +402,7 @@ npm start
 
 GitHub Profile:
 
-[Kornipati Akash Babu – GitHub](https://github.com/KornipatiAkash-1969?utm_source=chatgpt.com)
+[Kornipati Akash Babu – GitHub](https://github.com/KornipatiAkash-1969)
 
 ---
 
@@ -410,7 +410,7 @@ GitHub Profile:
 
 **Academic Performance Management System**
 
-[Academic Performance Management System – GitHub Repository](https://github.com/KornipatiAkash-1969/Academic-Performance-Management-System?utm_source=chatgpt.com)
+[Academic Performance Management System – GitHub Repository](https://github.com/KornipatiAkash-1969/Academic-Performance-Management-System)
 
 ---
 

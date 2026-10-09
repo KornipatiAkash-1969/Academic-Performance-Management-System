@@ -26,7 +26,8 @@ function DashboardRouter() {
   let user = null;
 
   try {
-    user = JSON.parse(localStorage.getItem('user'));
+    const raw = localStorage.getItem('user');
+    user = raw ? JSON.parse(raw) : null;
   } catch (error) {
     user = null;
   }
@@ -36,15 +37,20 @@ function DashboardRouter() {
     return <Navigate to="/login" replace />;
   }
 
+  const role = (user.role || '').toLowerCase().trim();
+
   // Render role-specific dashboard at /
-  if (user.role === 'teacher') {
+  if (role === 'teacher') {
     return <TeacherDashboard />;
-  } else if (user.role === 'coordinator') {
+  } else if (role === 'coordinator') {
     return <CoordinatorDashboard />;
-  } else if (user.role === 'student') {
+  } else if (role === 'student') {
     return <StudentDashboard />;
   }
 
+  // Corrupted or unrecognized role: clear session to break any redirect loop
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
   return <Navigate to="/login" replace />;
 }
 

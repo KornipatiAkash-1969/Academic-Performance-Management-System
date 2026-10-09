@@ -17,7 +17,7 @@ function TopNavbar({ onToggleMobile, onToggleCollapse, isCollapsed, role: propRo
     }
   }
 
-  const role = propRole || user.role || 'student';
+  const role = (propRole || user.role || 'student').toLowerCase().trim();
 
   const handleLogout = () => {
     localStorage.clear();

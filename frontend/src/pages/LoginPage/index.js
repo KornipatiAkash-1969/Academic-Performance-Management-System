@@ -11,8 +11,11 @@ function LoginPage() {
     user = null;
   }
 
-  // Without logout, never go to /login!
-  if (token && user) {
+  const role = (user?.role || '').toLowerCase().trim();
+  const isValidRole = ['teacher', 'coordinator', 'student'].includes(role);
+
+  // Without logout, never go to /login if valid session exists
+  if (token && user && isValidRole) {
     return <Navigate to="/" replace />;
   }
   return (
